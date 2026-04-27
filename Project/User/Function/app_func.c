@@ -10,6 +10,7 @@ resume_flag      超声波检测消抖
 uint8_t stopThre = 48;
 static uint8_t resume_flag = 0;
 uint8_t menual_stop = 0;    // 把停止标志位再细分了一种情况手动停止还是避障停止
+uint8_t led_flag =  0;      // LED状态标志位，1表示检测到障碍物，0表示没有检测到障碍物
 /*----------------------------------------------------------
 函数描述： 设置电机运动方向
 输入参数：
@@ -55,8 +56,8 @@ void Motor_Init(void)
 -----------------------------------------------------------*/
 void Motor_Speed(uint16_t speed)
 {
-    TIM_SetCompare1(TIM5, (TIM_AFTER_PRESCALER_FRENQ>>1)/speed);//
-    TIM_SetAutoreload(TIM5,TIM_AFTER_PRESCALER_FRENQ/speed - 1);//
+    TIM_SetCompare1(TIM5, (TIM_AFTER_PRESCALER_FRENQ>>1)/speed);//  设置占空比为50%
+    TIM_SetAutoreload(TIM5,TIM_AFTER_PRESCALER_FRENQ/speed - 1);//  设置自动重装载值为速度值的倒数减1
 }
 /*----------------------------------------------------------
 函数描述： 电机开始运行
@@ -174,11 +175,13 @@ void Motor_Check_Status(Motor_t *Motor)
     if(RADAR_RX_DIST != 0 && RADAR_RX_DIST <= stopThre){    // 加!0的原因：超声波还没有检测障碍物的时候，接收数据为0的情况
         Motor_Stop();                                       // 立刻停止电机，无延迟
         resume_flag = 0;                                    // 防止跳变、跳变、有障碍物、跳变的情况
+        led_flag = 1;                                       // 打开LED灯，表示检测到障碍物
     }else if(Move_Stop == 1 && menual_stop == 0){           // 电机停止，检测三次确认没有障碍物(消抖)后恢复运行
         resume_flag++;                                      // 加&& menual_stop == 0是为了确保不是"手动停止"产生的停止，把两种情况隔离了
         if(resume_flag > 2){
             resume_flag = 0;
             Motor_Resume();
+            led_flag = 0;                                   // 关闭LED灯，表示没有检测到障碍物
         }
     }
 }
@@ -282,6 +285,7 @@ void showMENU()
     OLED_ShowString(87, linenum * 2, "*CRTL", 16);  // 为什么是16，一个字符像素点：宽8，高2，8X2=16，整个屏幕最大坐标(7,127)
     linenum = 2;
     OLED_ShowString(0, linenum * 2, "*DATA", 16);
+    OLED_ShowString(79, linenum * 2, "*POINT", 16);
     linenum = 0;
 }
 /*----------------------------------------------------------
@@ -297,6 +301,21 @@ void showCTRL()
     OLED_ShowString(87, linenum * 2, "*TURN", 16);
     linenum = 2;
     OLED_ShowString(0, linenum * 2, "*RUN", 16);
+    linenum = 0;
+}
+/*----------------------------------------------------------
+函数描述： 显示巡检点菜单
+输入参数：类型： void
+返回值： void
+-----------------------------------------------------------*/
+void showPOINT()
+{
+    showFRAME();
+    linenum = 1;
+    OLED_ShowString(0, linenum * 2, "*POINT1", 16);
+    OLED_ShowString(71, linenum * 2, "*POINT2", 16);
+    linenum = 2;
+    OLED_ShowString(0, linenum * 2, "*POINT3", 16);
     linenum = 0;
 }
 /*----------------------------------------------------------

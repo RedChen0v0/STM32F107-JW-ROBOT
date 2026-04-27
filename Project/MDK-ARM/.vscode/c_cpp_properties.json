@@ -3,15 +3,15 @@
         {
             "name": "Target 1",
             "includePath": [
-                "d:\\桌面\\projectdemo\\Libraries\\FWLIB\\inc",
-                "d:\\桌面\\projectdemo\\Project\\User",
-                "d:\\桌面\\projectdemo\\Libraries\\CMSIS",
-                "d:\\桌面\\projectdemo\\Project\\Board\\inc",
-                "d:\\桌面\\projectdemo\\Project\\User\\Function",
+                "d:\\桌面\\project-demo\\Libraries\\FWLIB\\inc",
+                "d:\\桌面\\project-demo\\Project\\User",
+                "d:\\桌面\\project-demo\\Libraries\\CMSIS",
+                "d:\\桌面\\project-demo\\Project\\Board\\inc",
+                "d:\\桌面\\project-demo\\Project\\User\\Function",
                 "D:\\Keil5\\ARM\\ARMCC\\include",
                 "D:\\Keil5\\ARM\\ARMCC\\include\\rw",
-                "d:\\桌面\\projectdemo\\Libraries\\FWLIB\\src",
-                "d:\\桌面\\projectdemo\\Project\\Board\\src"
+                "d:\\桌面\\project-demo\\Libraries\\FWLIB\\src",
+                "d:\\桌面\\project-demo\\Project\\Board\\src"
             ],
             "defines": [
                 "USE_STDPERIPH_DRIVER",

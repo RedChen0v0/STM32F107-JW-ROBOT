@@ -39,6 +39,7 @@ static gpio_callback_irq  def_irq_callback = 0;
 static uint16_t pulse_cout = 0;
 
 uint8_t Move_End = 0; 
+uint8_t send_flag = 0;
 //==================================================================================================
 //
 // 下面是 静态 函数
@@ -371,7 +372,7 @@ void gpio_config(void)
                     PC14 ->  水平限位接近开关
 
 */		
-		set_gpio_config(bd_gpio_group_c,bd_gpio_pin_13,bd_gpio_mode_ipu,bd_gpio_speed_50mhz);
+	set_gpio_config(bd_gpio_group_c,bd_gpio_pin_13,bd_gpio_mode_ipu,bd_gpio_speed_50mhz);
     GPIO_EXTILineConfig( GPIO_PortSourceGPIOC,  GPIO_PinSource13);
     set_exti_config(bd_exti_line_13, bd_exti_mode_interrupt,bd_exti_trigger_falling);
     
@@ -416,7 +417,7 @@ void EXTI15_10_IRQHandler()
 				MOTOR_EN(1);        // 使能电机，停止电机运行
 				Move_End = 1; 
 				//exti_forward_handle(&Motor);
-				
+				send_flag = 0;
         EXTI_ClearITPendingBit(EXTI_Line13);
     }
     
@@ -424,7 +425,7 @@ void EXTI15_10_IRQHandler()
 				MOTOR_EN(1);
 				Move_End = 1; 
 				//exti_backward_handle(&Motor);
-				
+				send_flag = 0;
         EXTI_ClearITPendingBit(EXTI_Line14);
     }
 }
