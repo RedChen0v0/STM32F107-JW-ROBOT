@@ -135,31 +135,7 @@ void Motor_Set_Menual_Run(){
 返回值： void
 -----------------------------------------------------------*/
 void Motor_Check_Status(Motor_t *Motor)
-{
-//     if(Move_End == 1){
-//     // 检查限位开关是否已释放，只有释放后才允许换向
-//     uint8_t forward_limit_released = (get_gpio_input_value(FORWARD_LIMIT_GROUP, FORWARD_LIMIT_PIN) == 1);
-//     uint8_t backward_limit_released = (get_gpio_input_value(BACKWARD_LIMIT_GROUP, BACKWARD_LIMIT_PIN) == 1);
-    
-//     // 只有当触发换向的限位开关释放后才执行换向
-//     uint8_t can_change_dir = 0;
-    
-//     // 判断是哪个限位开关触发的换向
-//     if(Motor->Motor_Dir == FORWARD && backward_limit_released){
-//         can_change_dir = 1;  // 之前是前进，检测后退限位是否释放
-//     }
-//     else if(Motor->Motor_Dir == BACKWARD && forward_limit_released){
-//         can_change_dir = 1;  // 之前是后退，检测前进限位是否释放
-//     }
-    
-//     if(can_change_dir){
-//         Move_End = 0;
-//         Motor_Change_Dir(Motor);    // 改变电机方向
-//         Motor->Motor_En = ENA;      // 电机状态改为使能
-//         Motor_Start(Motor);         // 重新启动电机
-//     }
-// }
-    
+{   
     if(Move_End == 1){
         Move_End = 0;
         Motor_Change_Dir(Motor);    // 改变电机方向

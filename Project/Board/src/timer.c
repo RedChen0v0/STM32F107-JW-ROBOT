@@ -51,7 +51,7 @@ void TIM5_PWM_Init(u16 arr,u16 psc)
 	TIM_TimeBaseInitStrue.TIM_ClockDivision = TIM_CKD_DIV1; //一般不使用，默认TIM_CKD_DIV1
 	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseInitStrue); //根据TIM_TimeBaseInitStrue的参数初始化定时器TIM4
 	
-  TIM_ITConfig(TIM5,TIM_IT_Update,ENABLE );  //使能指定的TIM5中断,允许更新中断
+	TIM_ITConfig(TIM5,TIM_IT_Update,ENABLE );  //使能指定的TIM5中断,允许更新中断
 	
 	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;   //TIM5中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
@@ -99,7 +99,7 @@ void TIM1_PWM_Init(u16 arr,u16 psc)
 	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseInitStrue); //根据TIM_TimeBaseInitStrue的参数初始化定时器TIM4
 	
 
-	 TIM_ClearFlag(TIM1,TIM_FLAG_Update);
+	TIM_ClearFlag(TIM1,TIM_FLAG_Update);
  // TIM_ITConfig(TIM1,TIM_IT_Update|TIM_IT_CC4,ENABLE );  //使能指定的TIM1中断,允许更新中断
 	TIM_ITConfig(TIM1,TIM_IT_Update|TIM_IT_Trigger,ENABLE );  //使能指定的TIM1中断,允许更新中断
 	  

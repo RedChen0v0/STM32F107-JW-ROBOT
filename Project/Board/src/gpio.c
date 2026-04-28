@@ -317,7 +317,7 @@ void set_exti_config(bd_exti_line line ,bd_exti_mode mode ,bd_exti_trigger tigge
     EXTI_InitStructure.EXTI_Line = linex; 
     EXTI_InitStructure.EXTI_Mode = modex;
     EXTI_InitStructure.EXTI_Trigger = tifferx;
-    EXTI_InitStructure.EXTI_LineCmd    = ENABLE;
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 }
 
@@ -416,7 +416,7 @@ void EXTI15_10_IRQHandler()
     if(EXTI_GetITStatus(EXTI_Line13)!= RESET){
 				MOTOR_EN(1);        // 使能电机，停止电机运行
 				Move_End = 1; 
-				//exti_forward_handle(&Motor);
+				exti_forward_handle(&Motor);
 				send_flag = 0;
         EXTI_ClearITPendingBit(EXTI_Line13);
     }
@@ -424,7 +424,7 @@ void EXTI15_10_IRQHandler()
     if(EXTI_GetITStatus(EXTI_Line14)!= RESET){
 				MOTOR_EN(1);
 				Move_End = 1; 
-				//exti_backward_handle(&Motor);
+				exti_backward_handle(&Motor);
 				send_flag = 0;
         EXTI_ClearITPendingBit(EXTI_Line14);
     }

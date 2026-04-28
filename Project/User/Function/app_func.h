@@ -17,6 +17,7 @@ OLED_LOGO                      定义OLED显示logo状态标志
 OLED_DATA                      定义OLED显示data状态标志
 OLED_MENU                      定义OLED显示menu状态标志
 OLED_CTRL                      定义OLED显示ctrl状态标志
+OLED_POINT                     定义OLED显示point状态标志
 -----------------------------------------------------------*/
 #define OLED_LOGO 0
 #define OLED_DATA 1
